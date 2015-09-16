@@ -1,2 +1,5 @@
+import random
+
 class Reminderbot():
-    pass
+    def _get_random_quote(self):
+        return random.choice(self._quotes)
