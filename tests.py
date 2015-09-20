@@ -44,6 +44,19 @@ class TestReminderbot(unittest.TestCase):
         auth.get_authorization_url.assert_called_once_with()
         auth.get_access_token.assert_called_once_with("12345")
 
+    @patch("reminderbot._get_random_quote", Mock(return_value="A tweeted quote"))
+    @patch("tweepy.API", Mock())
+    def test_tweet_random_quote(self):
+        api_mock = Mock()
+        tweepy.API.return_value = api_mock
+
+        runner = CliRunner()
+        result = runner.invoke(reminderbot.tweet, catch_exceptions=False)
+
+        api_mock.update_status.assert_called_once_with("A tweeted quote")
+
+    def test_read_quotes_from_file(self):
+        pass
+
 if __name__ == '__main__':
-	logging.basicConfig(level=logging.DEBUG)
 	unittest.main()
