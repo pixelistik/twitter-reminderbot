@@ -3,7 +3,7 @@ import tweepy
 import click
 
 def _get_random_quote():
-    return random.choice(   _quotes)
+    return random.choice(_quotes)
 
 @click.command()
 @click.argument("consumer_key")
