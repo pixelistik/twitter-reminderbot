@@ -18,13 +18,16 @@ def authenticate(consumer_key, consumer_secret):
 
     click.echo("Setting up authentication. Please visit this URL:")
     click.echo(url)
-    verifier = click.prompt("Enter the authorisation PIN from Twitter:")
+    verifier = click.prompt("Enter the authorisation PIN from Twitter")
 
     try:
         auth.get_access_token(verifier)
     except tweepy.TweepError:
         click.echo("Error! Failed to get access token.")
 
+    with open("OAUTH_TOKEN", "w") as f:
+        click.echo(auth.access_token, file=f)
+        click.echo(auth.access_token_secret, file=f)
 
     api = tweepy.API(auth)
 
