@@ -27,6 +27,7 @@ class TestReminderbot(unittest.TestCase):
         self.assertEqual(result, "A first quote")
 
     @patch("tweepy.OAuthHandler", Mock())
+    @patch("tweepy.API", Mock())
     @patch("click.prompt", Mock(return_value="12345"))
     @patch("click.echo", Mock())
     def test_authenticate(self):
